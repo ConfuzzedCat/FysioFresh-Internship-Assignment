@@ -1,0 +1,13 @@
+:root {
+    --pmamount: 2%;
+}
+
+.border-test {
+    border: 2px solid rgb(255, 0, 0);
+}
+
+.border-padding{
+    
+    padding: var(--pmamount);
+    margin: calc(-1 * var(--pmamount));
+}
