@@ -4,41 +4,65 @@
       <v-row>        
         <div v-for="col in columns">
           <KanBanColumn
-            :title="col.columnTitle"
-            :cards="col.columnCards"
+              :title="col.columnTitle"
+              :cards="col.columnCards"
           />
         </div>
       </v-row>
     </v-main>
+    <!-- <v-footer app>
+      <v-text-field
+      label="Add a column"
+      @update:model-value="updateTempName"
+      >
+    </v-text-field>
+    </v-footer> -->
   </v-app>
 </template>
 
 <script setup>
 import KanBanColumn from './components/KanBanColumn.vue';
 
-var columns = []
-var cards = []
-var testDesc = "This is a test Description."
-
-// Add example cards
-for(let i = 0; i < 5; i++){
-  cards.push({
-    title: `test${i}`, 
-    desc: testDesc
-  })
-}
+let columns = []
+let tempColumnName = ""
 
 // Add example columns
 columns.push(
   {
     columnTitle:"To Do",
-    columnCards: cards
+    columnCards: []
   }
 )
 columns.push(
   {
     columnTitle:"In Progress",
-    columnCards: cards
+    columnCards: []
   }
 )
+columns.push(
+  {
+    columnTitle:"Done",
+    columnCards: []
+  }
+)
+
+function addColumn(){
+  console.log(tempColumnName)
+  if(tempColumnName.length > 0){
+    columns.push(
+      {
+        columnTitle:tempColumnName,
+        columnCards: []
+      }
+    )
+    console.log(columns)
+    tempColumnName = ""
+  }
+}
+
+function updateTempName(s){
+  tempColumnName = s
+  console.log(tempColumnName)
+}
+
 </script>

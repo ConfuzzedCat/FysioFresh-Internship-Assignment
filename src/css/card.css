@@ -1,13 +1,26 @@
 :root {
     --pmamount: 2%;
+    --padding-amount: 5%;
 }
 
 .border-test {
     border: 2px solid rgb(255, 0, 0);
 }
 
-.border-padding{
-    
+.border-spacing{
     padding: var(--pmamount);
     margin: calc(-1 * var(--pmamount));
+}
+
+.border-margin{
+    margin: var(--pmamount);
+}
+
+.border-padding{
+    padding: var(--pmamount);
+}
+
+.border-padding-l-r{
+    padding-left: var(----padding-amount);
+    padding-right: var(----padding-amount);
 }

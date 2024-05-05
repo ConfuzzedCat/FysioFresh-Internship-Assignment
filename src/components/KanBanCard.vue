@@ -8,23 +8,15 @@ let props = defineProps(['title', 'desc'])
 const isTitleEditing = ref(false)
 const isDescEditing = ref(false)
 
-
-console.log("Cards Props", props.title, props.desc)
-
-function titleEditToggle(){
-    isTitleEditing = !isTitleEditing
-    console.log("isTitleEditing:", isTitleEditing)
-}
-
-function descEditToggle(){
-    isDescEditing = !isDescEditing
-}
+console.log("Card props:", props.title, props.desc)
 
 function updateTitle(s){
     let tprops = props
-    props = {
-        title: s,
-        desc: tprops.desc
+    if(s.length > 0){
+        props = {
+            title: s,
+            desc: tprops.desc
+        }
     }
     console.log(props)
 }
@@ -40,8 +32,7 @@ function updateDesc(s){
 </script>
 
 <template>
-    <div class="border-padding">
-
+    <div class="border-spacing">
         <v-card>
         <v-card-item> 
             <v-card-title >
