@@ -7,6 +7,7 @@ import { ref } from "vue"
 let props = defineProps(['title', 'desc'])
 const isTitleEditing = ref(false)
 const isDescEditing = ref(false)
+const toggleDelete = ref(false)
 
 console.log("Card props:", props.title, props.desc)
 
@@ -58,6 +59,13 @@ function updateDesc(s){
                     @click="isDescEditing = !isDescEditing"
                 >{{ props.desc }}</p>
         </v-card-text>
+        <v-card-actions 
+            class="justify-center"
+            @mouseover="toggleDelete = true" 
+            @mouseleave="toggleDelete = false">
+
+            <v-btn v-show="toggleDelete" icon="mdi-delete-circle" @click="$emit('delete')"></v-btn>
+        </v-card-actions>
       </v-card>
     </div>
 </template>

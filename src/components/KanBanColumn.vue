@@ -49,7 +49,6 @@ export default {
     data() {
         return {
             isAddingCard: false,
-            toggleDelete: false,
             list: this.cards
         };
     },
@@ -85,7 +84,7 @@ export default {
 
 <template>
     <div>
-        <v-col cols="auto" md="auto" style="min-width: 10em">
+        <v-col cols="auto" md="auto" style="min-width: 40em">
             <v-card >
                 <v-card-item> 
                     <v-card-title>{{ this.title }}</v-card-title>
@@ -96,14 +95,8 @@ export default {
                             <KanBanCard
                             :title="element.title"
                             :desc="element.desc"
-                            @mouseover="toggleDelete = !toggleDelete"
+                            @delete="removeCard(element)"
                             />
-                            <v-icon
-                                icon="mdi-delete-circle"
-                                @click="removeCard(element)"
-                                v-show="toggleDelete"
-                            >
-                            </v-icon>
                         </div>
                     </template>
                 </draggable>
