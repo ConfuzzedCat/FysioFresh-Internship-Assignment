@@ -1,11 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <v-row>        
-        <div v-for="(col, i) in columns" :key="i">
+      <v-row class="global-padding">        
+        <div v-for="(col, i) in columns" :key="i" >
           <KanBanColumn
               :title="col.columnTitle"
               :cards="col.columnCards"
+              :color="col.columnColor"
+              :cardColor="col.cardColor"
           />
         </div>
       </v-row>
@@ -30,19 +32,25 @@ let tempColumnName = ""
 columns.push(
   {
     columnTitle:"To Do",
-    columnCards: []
+    columnCards: [],
+    columnColor: "#ff0000",
+    cardColor: "#990000"
   }
 )
 columns.push(
   {
     columnTitle:"In Progress",
-    columnCards: []
+    columnCards: [],
+    columnColor: "#00ff00",
+    cardColor: "#009900"
   }
 )
 columns.push(
   {
     columnTitle:"Done",
-    columnCards: []
+    columnCards: [],
+    columnColor: "#0000ff",
+    cardColor: "#000099"
   }
 )
 

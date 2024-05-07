@@ -2,37 +2,6 @@
   @import '../css/card.css';
 </style>
 
-<!-- <script setup>
-import { ref } from "vue"
-import KanBanCard from './KanBanCard.vue';
-let props = defineProps(['title', 'cards'])
-const isAddingCard = ref(false)
-
-let tempTitle = ""
-let tempDesc = "No description"
-
-function updateTitleCard(s){
-    tempTitle = s
-}
-
-function updateDescCard(s){
-    tempDesc = s
-}
-
-function addCard(){
-    let tprops = props
-
-    tprops.cards.push({
-        title: tempTitle, 
-        desc: tempDesc
-    })
-    props = tprops
-    tempTitle = ""
-    tempDesc = "No description"
-}
-
-</script> -->
-
 <script>
 import draggable from "vuedraggable";
 import KanBanCard from './KanBanCard.vue';
@@ -45,10 +14,11 @@ export default {
         draggable,
         KanBanCard
     },
-    props:['title', 'cards'],
+    props:['title', 'cards', 'color', 'cardColor'],
     data() {
         return {
             isAddingCard: false,
+            isHovering: false,
             list: this.cards
         };
     },
@@ -63,13 +33,16 @@ export default {
         },
 
         addCard: function (){
-            this.list.push({
-                id: id++,
-                title: tempTitle, 
-                desc: tempDesc
-            })
-            tempTitle = ""
-            tempDesc = "No description"
+            if(tempTitle.length > 0){
+                this.list.push({
+                    id: id++,
+                    title: tempTitle, 
+                    desc: tempDesc,
+                    color: this.cardColor
+                })
+                tempTitle = ""
+                tempDesc = "No description"
+            }
         },
         removeCard: function (element){
             const index = this.list.indexOf(element); 
@@ -83,18 +56,22 @@ export default {
 
 
 <template>
-    <div>
-        <v-col cols="auto" md="auto" style="min-width: 40em">
-            <v-card >
+    <div class="columns">
+        <v-col cols="auto" md="auto">
+            <v-card
+            :color="this.color"
+            @mouseover="isHovering = true" 
+            @mouseleave="isHovering = false">
                 <v-card-item> 
                     <v-card-title>{{ this.title }}</v-card-title>
                 </v-card-item>
-                <draggable :list="this.list" group="columns">                    
+                <draggable :list="this.list" group="columns" :key="this.title">                    
                     <template #item="{element}">
                         <div class="border-margin">
                             <KanBanCard
                             :title="element.title"
                             :desc="element.desc"
+                            :color="this.cardColor"
                             @delete="removeCard(element)"
                             />
                         </div>
@@ -111,8 +88,12 @@ export default {
                     </v-text-field>
                 </div>                
                 <v-card-actions class="justify-center">
-                    <v-btn v-if="isAddingCard" icon="mdi-check-circle" @click="[isAddingCard = !isAddingCard, addCard()]"></v-btn>
-                    <v-btn icon="mdi-plus" variant="tonal" @click="isAddingCard = !isAddingCard"></v-btn>
+                    <Transition>
+                        <div v-if="isHovering">
+                            <v-btn v-if="isAddingCard" icon="mdi-check-circle" @click="[isAddingCard = !isAddingCard, addCard()]"></v-btn>
+                            <v-btn icon="mdi-plus" variant="tonal" @click="isAddingCard = !isAddingCard"></v-btn>
+                        </div>
+                    </Transition>
                 </v-card-actions>                
             </v-card>
         </v-col>

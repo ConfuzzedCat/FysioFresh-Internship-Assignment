@@ -1,6 +1,7 @@
 :root {
     --pmamount: 2%;
-    --padding-amount: 5%;
+    --padding-amount: 10%;
+    --gpadding: 1%
 }
 
 .border-test {
@@ -23,4 +24,23 @@
 .border-padding-l-r{
     padding-left: var(----padding-amount);
     padding-right: var(----padding-amount);
+}
+
+.columns{
+    width:      20em;
+    max-width:  100%;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.global-padding{
+    padding: var(--gpadding);
 }

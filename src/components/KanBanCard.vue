@@ -4,12 +4,12 @@
 
 <script setup>
 import { ref } from "vue"
-let props = defineProps(['title', 'desc'])
+let props = defineProps(['title', 'desc', 'color'])
 const isTitleEditing = ref(false)
 const isDescEditing = ref(false)
 const toggleDelete = ref(false)
 
-console.log("Card props:", props.title, props.desc)
+console.log("Card props:", props.title, props.desc, props.color)
 
 function updateTitle(s){
     let tprops = props
@@ -34,7 +34,10 @@ function updateDesc(s){
 
 <template>
     <div class="border-spacing">
-        <v-card>
+        <v-card
+            :color="props.color"
+            @mouseover="toggleDelete = true" 
+            @mouseleave="toggleDelete = false">
         <v-card-item> 
             <v-card-title >
                 <v-text-field 
@@ -60,11 +63,10 @@ function updateDesc(s){
                 >{{ props.desc }}</p>
         </v-card-text>
         <v-card-actions 
-            class="justify-center"
-            @mouseover="toggleDelete = true" 
-            @mouseleave="toggleDelete = false">
-
-            <v-btn v-show="toggleDelete" icon="mdi-delete-circle" @click="$emit('delete')"></v-btn>
+            class="justify-center">
+            <Transition>
+                <v-btn v-if="toggleDelete" icon="mdi-delete-circle" @click="$emit('delete')"></v-btn>
+            </Transition>
         </v-card-actions>
       </v-card>
     </div>
