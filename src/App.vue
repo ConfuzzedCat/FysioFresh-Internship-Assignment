@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-row>        
-        <div v-for="col in columns">
+        <div v-for="(col, i) in columns" :key="i">
           <KanBanColumn
               :title="col.columnTitle"
               :cards="col.columnCards"
